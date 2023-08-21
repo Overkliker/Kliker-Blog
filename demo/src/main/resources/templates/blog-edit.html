@@ -62,11 +62,15 @@
 
 <main>
     <div></div>
-    <div class="container mt-5">
-        <div th:each="el : ${posts}" class="alert alert-info mt-5">
-            <h3 th:text="${el.title}"></h3>
-            <a  th:href="'/blog/' + ${el.id}" class="btn btn-warning">More...</a>
-        </div>
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+
+        <form method="post"><br>
+            <div th:each="el : ${post}">
+                <input type="text" th:value="${el.title}" name="title" placeholder="name of post" class="form-control"><br>
+                <textarea name="fullText" th:text="${el.text}" placeholder="full text" class="form-control"></textarea><br>
+                <button type="submit" class="btn btn-success">Change post</button>
+            </div>
+        </form>
     </div>
 
     <!-- FOOTER -->

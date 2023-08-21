@@ -46,6 +46,7 @@ class BlogController {
         if (postRepository.existsById(id)){
             val post : Optional<Post> = postRepository.findById(id)
             val toArr : ArrayList<Post> = ArrayList<Post>()
+            blogPostViews(id)
             post.ifPresent(toArr::add)
             model.addAttribute("post", toArr)
             return "blog-details"
@@ -53,6 +54,43 @@ class BlogController {
         else{
             return "redirect:/blog"
         }
+    }
 
+    @PostMapping("/blog/{id}")
+    fun blogPostViews(@PathVariable(value = "id") id : Int) : String{
+        val post : Post =  postRepository.findById(id).orElseThrow()
+        post.views += 1
+        postRepository.save(post)
+        return "blog-details"
+    }
+
+    @GetMapping("/blog/{id}/edit")
+    fun blogEdit(@PathVariable(value = "id") id : Int, model: Model): String{
+        if (postRepository.existsById(id)){
+            val post : Optional<Post> = postRepository.findById(id)
+            val toArr : ArrayList<Post> = ArrayList<Post>()
+            post.ifPresent(toArr::add)
+            model.addAttribute("post", toArr)
+            return "blog-edit"
+        }
+        else{
+            return "redirect:/blog"
+        }
+    }
+
+    @PostMapping("/blog/{id}/edit")
+    fun blogPostEdit(@PathVariable(value = "id") id : Int, @RequestParam title : String, @RequestParam fullText : String, model : Model) : String{
+        val post : Post =  postRepository.findById(id).orElseThrow()
+        post.text = fullText
+        post.title = title
+        postRepository.save(post)
+        return "redirect:/blog"
+    }
+
+    @PostMapping("/blog/{id}/delete")
+    fun blogPostDelete(@PathVariable(value = "id") id : Int, model : Model) : String{
+        val post : Post =  postRepository.findById(id).orElseThrow()
+        postRepository.delete(post)
+        return "redirect:/blog"
     }
 }
