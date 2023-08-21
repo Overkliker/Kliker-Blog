@@ -61,11 +61,12 @@
 <div th:insert="blocks/header :: navbar"></div>
 
 <main>
-    <div></div>
     <div class="container mt-5">
-        <div th:each="el : ${posts}" class="alert alert-info mt-5">
-            <h3 th:text="${el.title}"></h3>
-            <a th:href="'/blog/' + ${el.id}" class="btn btn-warning">More...</a>
+        <div th:each="el : ${post}" class="alert alert-info mt-5">
+            <h1 th:text="${el.title}"></h1>
+            <p th:text="${el.text}"></p>
+            <a th:href="'/blog/' + ${el.id} + '/edit'" class="btn btn-warning">Change</a>
+            <a th:href="'/blog/' + ${el.id} + '/delete'" class="btn btn-warning">Delete</a>
         </div>
     </div>
 
@@ -76,4 +77,4 @@
 
 </body>
 
-</html>
+</html>`
