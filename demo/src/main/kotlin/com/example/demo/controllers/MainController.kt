@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
 class MainController {
+
+    //Home page
     @GetMapping("/")
     fun home(
         model: Model
@@ -16,6 +18,7 @@ class MainController {
         return "home"
     }
 
+    //Get page about me
     @GetMapping("/about")
     fun about(
         model: Model
