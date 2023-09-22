@@ -27,4 +27,9 @@ class MainController {
         model.addAttribute("headerForPage", "Info about me")
         return "about"
     }
+
+    @GetMapping("/game")
+    fun game(model: Model): String{
+        return "game";
+    }
 }
